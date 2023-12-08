@@ -1,4 +1,5 @@
 import functools
+import math
 
 instructions, graph_lines  = open("input/puzzle_input.txt").read().split("\n\n")
 nodes = {}
@@ -27,13 +28,5 @@ def find_number_of_steps(start, suffix):
 
 print("part 1 ", find_number_of_steps("AAA", "ZZZ"))
 
-def greatest_common_divisor(a, b):
-    if b == 0:
-        return a
-    return greatest_common_divisor(b, a % b)
-
-def least_common_multiple(a, b):
-    return (a * b) / greatest_common_divisor(*sorted([a, b], reverse=True))
-
 path_lengths = map(lambda sn: find_number_of_steps(sn, "Z"), filter(lambda n: n.endswith("A") , nodes))
-print("part 2 ", int(functools.reduce(least_common_multiple, path_lengths)))
+print("part 2 ", int(functools.reduce(math.lcm, path_lengths)))
